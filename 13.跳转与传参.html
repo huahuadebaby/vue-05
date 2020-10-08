@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to='/'> 首页</router-link>
+        <router-link to='/list'> 不传参跳转</router-link>
+        <router-link to='/user/2'> c传参跳转（路由传值）</router-link>
+        <router-link to="/product?name=冰箱"> 传参跳转（查询参数传值）</router-link>
+        <hr>
+
+
+        <router-view></router-view>
+
+
+
+
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+        const router = new VueRouter({
+            routes: [{
+                    path: '/',
+                    component: {
+                        template: `<div>我是一个首页</div>`
+
+                    }
+
+                },
+                {
+                    path: '/list',
+                    component: {
+                        template: `<div>我是一个列表页</div>`
+                    }
+
+                },
+                {
+                    path: '/user/:id',
+                    component: {
+                        template: `<div>我是用户----{{$route.params.id}}</div>`
+                    }
+                },
+                {
+                    path: '/product',
+                    component: {
+                        template: `<div>我是商品---  {{$route.query.name}}</div>`
+                    }
+                }
+
+            ]
+        })
+        const vm = new Vue({
+            el: '#app',
+            router
+        })
+
+        // 常见得传参方式
+        // 1.路由传值，参数是路由的一部分 
+        //通过this.$route.params.id 获取
+        // 2.查询参数传值
+        // 通过this.$route.query.name获取
+
+        // 常见的跳转路由的方式
+        // 1.声明式导航，通过router-link 跳转
+        // 类似于 < a href = "http://www.baidu.com" > < /a>
+        // 2。编程式导航，通过js方式跳转
+        // 类似于location.href='http://www.baidu.com'
+    </script>
+</body>
+
+</html>

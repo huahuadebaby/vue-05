@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li>
+                <router-link to='/index'>首页</router-link>
+            </li>
+            <li>
+                <router-link to='/path'>登录页</router-link>
+            </li>
+            <li>
+                <router-link to='/list'>列表页</router-link>
+            </li>
+
+        </ul>
+        <router-view></router-view>
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+        const root = new VueRouter({
+            routes: [{
+                path: '/index',
+                component: {
+                    template: `<div>
+                    <div>我是一个a变迁 ---{{msg}}</div>
+                    <button @click='add'>点击一下</button>
+                    </div>`,
+                    data() {
+                        return {
+                            msg: 1
+                        }
+                    },
+                    methods: {
+                        add() {
+                            this.msg++
+                        }
+
+                    }
+                }
+
+            }, {
+                path: '/path',
+                component: {
+                    template: `<div>我是一个div标签</div>`
+                }
+
+            }, {
+                path: '/list',
+                component: {
+                    template: `<h3>我是一个h3标签</h3>`
+
+                }
+
+            }]
+
+        })
+        const vm = new Vue({
+            el: '#app',
+            router: root
+
+        })
+
+        // vue为了实现导航链接的跳转，，专门提供了router-link 导航链接
+        //注意点： // 1. router - link 实际渲染出来还是a标签
+        // 2.router-link 必须配置to属性，用于跳转特定的路由地址
+    </script>
+</body>
+
+</html>

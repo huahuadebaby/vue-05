@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to='/index/1'> 用户1</router-link>
+        <router-link to='/index/2'> 用户2</router-link>
+        <router-link to='/index/3'> 用户3</router-link>
+        <router-view></router-view>
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+        const User = {
+            template: `<div>我是user组件---{{msg}}---{{$route.params.id}}</div>`,
+            data() {
+                return {
+                    msg: '张三'
+
+                }
+            },
+            created() {
+                console.log(this.$route);
+            }
+
+
+
+        }
+        const router = new VueRouter({
+            routes: [{
+                path: '/index/:id',
+                component: User
+
+            }]
+
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue'
+            },
+            router
+        })
+
+
+        // 对于id各不相同的用户,映射向同一个组件,要拿路径，要拿参数，一律找$route
+        // $route是一个对象，包含了当前路由的相关信息（包括路径，参数）
+        // params获取动态路由的值
+        // query 获取查询参数
+    </script>
+</body>
+
+</html>

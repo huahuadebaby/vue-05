@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        .my-subject {
+            border: 1px solid #000;
+            width: 300px;
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h4>测试题</h4>
+        <my-subject v-for='item in list ' :key=item.id :skl=item.id @el-init='father'></my-subject>
+        <p v-for='item in list'>
+            <span>{{item.id }}. {{item.ans}}</span>
+        </p>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+        Vue.component('my-subject', {
+            template: `
+            <div class="my-subject">
+            <span>{{num1}}</span> + <span>{{num2}}</span> = <input type="text" class="sum" v-model.number='sum'>
+            <button @click='submit'>提交</button>
+        </div>
+        `,
+            data() {
+                return {
+                    num1: parseInt(Math.random() * 10),
+                    num2: parseInt(Math.random() * 10),
+                    sum: ''
+                }
+            },
+            methods: {
+                submit() {
+                    const result = (this.num1 + this.num2) === this.sum ? '正确' : '错误'
+                    // 先判断结果 把结果传给父组件，
+
+
+                    // 把id 和结果传给父组件
+
+                    this.$emit('el-init', {
+                        res: result,
+                        id: this.skl
+                    })
+                }
+
+            },
+            props: ['skl']
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                list: [{
+                        id: 1,
+                        ans: '未完成'
+                    },
+                    {
+                        id: 2,
+                        ans: '未完成'
+                    },
+                    {
+                        id: 3,
+                        ans: '未完成'
+                    },
+                    {
+                        id: 4,
+                        ans: '未完成'
+                    }
+                ]
+            },
+            methods: {
+                father(obj) {
+                    console.log(obj);
+                    const cc = this.list.find(item => item.id === obj.id)
+                    cc.ans = obj.res
+
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>

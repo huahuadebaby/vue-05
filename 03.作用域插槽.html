@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .content {
+            border: 3px solid #000;
+            padding: 5px;
+            margin: 5px;
+            width: 300px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <zk-com title='警告框'>
+            <template v-slot:mian>
+                <input type="text"> <br>
+                <input type="text"> <br>
+                <input type="text"> <br>
+            </template>
+            <template v-slot:footer='obj'>
+                <p>{{obj.age}}</p>
+                <p>操</p>
+                <p>操</p>
+            </template>
+            <div> 我是底部</div>
+
+
+
+
+        </zk-com>
+
+
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        Vue.component('zk-com', {
+            template: `
+            <div class="content">
+            <div>
+            <h3>{{title}}</h3>
+            </div>
+            <div class='main'>
+            <slot name='main'></slot>
+            </div>
+            <div class=footer>
+            <slot name='footer' :age='age' :pl='name' lg='lk'></slot>
+            </div>
+            <slot></slot>
+            </div>`,
+            props: ['title'],
+            data() {
+                return {
+                    name: 'zk',
+                    age: 18
+
+                }
+
+            }
+        })
+        const vm = new Vue({
+            el: '#app'
+
+        })
+
+        // 作用域插槽，插槽传值的用法，其实定义插槽的同时，是可以进行提供数据的
+        // 可以在分发内容时，使用组件是，可以使用这些默认提供的数据
+        // 具体使用步骤：
+        // 1.给插槽 以添加属性的方式传值
+        //<slot money="100" title="大标题" yes="确认" no="取消" name="footer"></slot>
+        // 2.所有的添加得属性，都会被添加到一个对象中去
+        // 3，在template标签中的的v-slot:插槽名=obj  接收参数
+    </script>
+</body>
+
+</html>

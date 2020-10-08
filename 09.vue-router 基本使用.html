@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-view></router-view>
+
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+        //vue - router是vue官方提供的vue路由插件： 帮你监视地址栏hash的变化， 并且帮你切换
+        // 对应的组件
+
+        // 1.下载 npm  i vue -router
+        // 2.引包
+        // 3. 创建vue-router 实例
+        // 4.挂载到vm实例上
+        // 5.配置路由实例
+        //6. 配置路由出口， //< router - view > < /router-view>
+
+        const router = new VueRouter({
+            routes: [{
+                path: '/home',
+                component: {
+                    template: `<div>我是一个实例</div>`
+                }
+            }]
+        })
+        const vm = new Vue({
+            el: "#app",
+            router
+
+        })
+    </script>
+</body>
+
+</html>
